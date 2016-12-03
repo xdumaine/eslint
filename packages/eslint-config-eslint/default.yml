@@ -68,6 +68,7 @@ rules:
     no-process-exit: "error"
     no-proto: "error"
     no-redeclare: "error"
+    no-reject-literal: "error"
     no-return-assign: "error"
     no-script-url: "error"
     no-self-assign: "error"
