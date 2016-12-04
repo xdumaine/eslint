@@ -32,7 +32,8 @@ ruleTester.run("no-reject-literal", rule, {
         "new Foo((resolve, reject) => reject(5))",
         "new Promise(function(resolve, reject) { return function(reject) { reject(5) } })",
         "new Promise(function(resolve, reject) { if (foo) { const reject = somethingElse; reject(5) } })",
-        "new Promise(function(resolve, {apply}) { apply(5) })"
+        "new Promise(function(resolve, {apply}) { apply(5) })",
+        "new Promise(function(resolve, reject) { resolve(5, reject) })"
     ],
 
     invalid: [
