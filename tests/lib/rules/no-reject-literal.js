@@ -16,7 +16,7 @@ const RuleTester = require("../../../lib/testers/rule-tester");
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 6 } });
+const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 8 } });
 
 ruleTester.run("no-reject-literal", rule, {
 
@@ -33,7 +33,8 @@ ruleTester.run("no-reject-literal", rule, {
         "new Promise(function(resolve, reject) { return function(reject) { reject(5) } })",
         "new Promise(function(resolve, reject) { if (foo) { const reject = somethingElse; reject(5) } })",
         "new Promise(function(resolve, {apply}) { apply(5) })",
-        "new Promise(function(resolve, reject) { resolve(5, reject) })"
+        "new Promise(function(resolve, reject) { resolve(5, reject) })",
+        "async function foo() { Promise.reject(await foo); }"
     ],
 
     invalid: [
