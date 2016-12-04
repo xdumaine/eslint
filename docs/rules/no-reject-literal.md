@@ -1,6 +1,6 @@
 # disallow using literals as Promise rejection reasons (no-reject-literal)
 
-It is considered good practice to only instances of the built-in `Error` object for user-defined errors in Promises. `Error` objects automatically store a stack trace, which can be used to debug an error by determining where it came from. If a Promise is rejected with a non-`Error` value, it can be difficult to determine where the rejection occurred
+It is considered good practice to only instances of the built-in `Error` object for user-defined errors in Promises. `Error` objects automatically store a stack trace, which can be used to debug an error by determining where it came from. If a Promise is rejected with a non-`Error` value, it can be difficult to determine where the rejection occurred.
 
 
 ## Rule Details
