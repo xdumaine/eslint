@@ -74,7 +74,13 @@ ruleTester.run("no-multi-spaces", rule, {
         {
             code: "var  answer = 6 *  7;",
             options: [{ exceptions: { VariableDeclaration: true, BinaryExpression: true } }]
-        }
+        },
+
+        // https://github.com/eslint/eslint/issues/7693
+        "var x = 5;\n  // comment",
+        "var x = 5;  \n// comment",
+        "var x = 5;\n  /* multiline\n * comment\n */",
+        "var x = 5;  \n/* multiline\n * comment\n */"
     ],
 
     invalid: [
@@ -378,6 +384,47 @@ ruleTester.run("no-multi-spaces", rule, {
             errors: [{
                 message: "Multiple spaces found before '5'.",
                 type: "Numeric"
+            }]
+        },
+
+        // https://github.com/eslint/eslint/issues/7693
+        {
+            code: "var x =  /* comment */ 5;",
+            output: "var x = /* comment */ 5;",
+            errors: [{
+                message: "Multiple spaces found before '/* comment */'.",
+                type: "Block"
+            }]
+        },
+        {
+            code: "var x = /* comment */  5;",
+            output: "var x = /* comment */ 5;",
+            errors: [{
+                message: "Multiple spaces found before '5'.",
+                type: "Numeric"
+            }]
+        },
+        {
+            code: "var x = 5;  // comment",
+            output: "var x = 5; // comment",
+            errors: [{
+                message: "Multiple spaces found before '// comment'.",
+                type: "Line"
+            }]
+        },
+        {
+            code: "var x = 5;  /* multiline\n * comment\n */",
+            output: "var x = 5; /* multiline\n * comment\n */",
+            errors: [{
+                message: "Multiple spaces found before '/* multiline ... */'.",
+                type: "Block"
+            }]
+        }, {
+            code: "var x = 5;  // this is a long comment",
+            output: "var x = 5; // this is a long comment",
+            errors: [{
+                message: "Multiple spaces found before '// this is a l ...'.",
+                type: "Line"
             }]
         }
     ]
